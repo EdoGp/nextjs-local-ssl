@@ -1,15 +1,15 @@
-const { createServer } = require('https');
-const { parse } = require('url');
-const next = require('next');
-const { readFileSync } = require('fs');
+const {createServer} = require("https");
+const {parse} = require("url");
+const next = require("next");
+const {readFileSync} = require("fs");
 const port = 3000;
-const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
+const dev = process.env.NODE_ENV !== "production";
+const app = next({dev});
 const handle = app.getRequestHandler();
 
 const httpsOptions = {
-  key: readFileSync('./localhost.key'),
-  cert: readFileSync('./localhost.crt'),
+  key: readFileSync("./localhost.key"),
+  cert: readFileSync("./localhost.crt"),
 };
 
 app.prepare().then(() => {
@@ -18,6 +18,6 @@ app.prepare().then(() => {
     handle(req, res, parsedUrl);
   }).listen(port, (err) => {
     if (err) throw err;
-    console.log('ready - started server on url: https://localhost:' + port);
+    console.log("ready - started server on url: https://localhost:" + port);
   });
 });
