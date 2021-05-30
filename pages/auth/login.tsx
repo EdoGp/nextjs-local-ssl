@@ -1,20 +1,24 @@
 import Link from 'next/link';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { SyntheticEvent, useState } from 'react';
 import { postInternalLogin } from '../../adapters/auth';
 
 export const LoginPage = () => {
+  const router = useRouter();
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('test');
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    console.log('error', error);
-  }, [error]);
-
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    const response = await postInternalLogin({ username, password });
-    console.log({ response });
+    try {
+      const response = await postInternalLogin({ username, password });
+      router.push('/dashboard');
+      // set response to context / redux
+      // redirect on success with redux
+    } catch (err) {
+      setError(err.response.data.message);
+    }
   };
 
   const handleEmailChange = (e): void => {
@@ -28,6 +32,7 @@ export const LoginPage = () => {
     <>
       <div>
         <h1>Log in</h1>
+        {error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>
           <div>
             <div>

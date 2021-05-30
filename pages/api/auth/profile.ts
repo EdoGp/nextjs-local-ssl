@@ -36,14 +36,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           secure: true,
           sameSite: 'strict',
           path: '/',
-          expires: new Date(0),
+          maxAge: 0,
         }),
         cookie.serialize('refreshToken', '', {
           httpOnly: true,
           secure: true,
           sameSite: 'strict',
           path: '/',
-          expires: new Date(0),
+          maxAge: 0,
         }),
       ]);
       return res.status(response.status).json({ message: '' });
@@ -54,14 +54,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           secure: true,
           sameSite: 'strict',
           path: '/',
-          expires: new Date(0),
+          maxAge: 0,
         }),
         cookie.serialize('refreshToken', '', {
           httpOnly: true,
           secure: true,
           sameSite: 'strict',
           path: '/',
-          expires: new Date(0),
+          maxAge: 0,
         }),
       ]);
       const { response } = error;
@@ -70,7 +70,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .json({ message: response.data.message });
     }
   } else {
-    res.setHeader('Allow', ['POST']);
+    res.setHeader('Allow', ['GET']);
     res.status(405).json({ message: `Method ${req.method} not allowed` });
   }
 };
