@@ -44,12 +44,9 @@ export const postInternalLogin = (loginCredentials: {
   return axiosInstance.post('login', loginCredentials);
 };
 
-export const postInternalLogout = (registerCredentials: {
-  email: string;
-  password: string;
-}) => {
+export const postInternalLogout = () => {
   const axiosInstance = returnAxiosInternalInstance();
-  return axiosInstance.post('logout', registerCredentials);
+  return axiosInstance.post('logout');
 };
 
 export default {

@@ -28,7 +28,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             maxAge: 60 * 60 * 24 * 31, // 1 month
           }),
         ]);
-        return res.status(200).json({ user: response.data.data.user ?? '' });
+        return res.status(200).json({ data: response.data.data });
       }
       res.setHeader('Set-Cookie', [
         cookie.serialize('accessToken', '', {
