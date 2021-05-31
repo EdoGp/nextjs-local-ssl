@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { authLogin } from '../../redux';
 
-export const LoginPage = () => {
+export const LoginPage = (): JSX.Element => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const authState = useSelector((state) => {
+  const authState = useSelector((state: RootStateOrAny) => {
     return state.authStore;
   });
   const [username, setUsername] = useState('admin');

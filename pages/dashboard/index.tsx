@@ -1,15 +1,19 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../../adapters/profile';
 import { getAccessTokenFromCookie } from '../../helpers/cookies';
 import { authLogout } from '../../redux';
 
-export const DashboardPage = ({ accessToken }) => {
+type Props = {
+  accessToken: string;
+};
+
+export const DashboardPage = ({ accessToken }: Props): JSX.Element => {
   const [profile, setProfile] = useState({});
   const router = useRouter();
   const dispatch = useDispatch();
-  const authState = useSelector((state) => {
+  const authState = useSelector((state: RootStateOrAny) => {
     return state.authStore;
   });
 
@@ -19,7 +23,7 @@ export const DashboardPage = ({ accessToken }) => {
     }
   }, [authState]);
 
-  const getProfileData = async () => {
+  const getProfileData = async (): Promise<void> => {
     const profileResponse = await getProfile({ token: accessToken });
     setProfile(profileResponse.data.data);
   };
@@ -28,8 +32,7 @@ export const DashboardPage = ({ accessToken }) => {
     getProfileData();
   }, []);
 
-  const logOut = () => {
-    console.log('test');
+  const logOut = (): void => {
     dispatch(authLogout());
   };
 
