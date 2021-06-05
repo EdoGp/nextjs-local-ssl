@@ -55,8 +55,8 @@ export const loginSuccess = (data) => {
   return {
     type: types.LOGIN_SUCCESS,
     payload: {
+      isLoggedIn: true,
       accessToken: data.accessToken,
-      refreshToken: data.refreshToken,
     },
   };
 };

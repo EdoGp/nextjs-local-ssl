@@ -1,10 +1,10 @@
-// import { getAccessToken, getRefreshToken } from '../../utils/auth';
+import { getAccessToken } from './../../utils/auth';
 import types from './authTypes';
 
 const initialState = {
   loading: false,
-  accessToken: 'getAccessToken()',
-  refreshToken: 'getRefreshToken()',
+  isLoggedIn: !!getAccessToken(),
+  accessToken: getAccessToken(),
   error: '',
 };
 

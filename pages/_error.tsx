@@ -1,9 +1,10 @@
-import Router from 'next/router';
+// import Router from 'next/router';
+// import { useEffect } from 'react';
 
 export const _error = () => {
-  useEffect(() => {
-    Router.push('/');
-  }, []);
+  // useEffect(() => {
+  //   Router.push('/');
+  // }, []);
 
   return <div>Error Page.....</div>;
 };

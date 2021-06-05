@@ -5,6 +5,7 @@ function returnAxiosInstance({ token }) {
     baseURL: `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}auth/`,
     headers: {
       'Accept': 'application/json',
+      'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'https://localhost:3000',
       'Authorization': `Bearer ${token}`,
     },

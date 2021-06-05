@@ -1,8 +1,14 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
+import { RootStateOrAny, useSelector } from 'react-redux';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
+  const { isLoggedIn, accessToken } = useSelector((state: RootStateOrAny) => {
+    return state.authStore;
+  });
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,7 +23,10 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          is userLogged in =={`${isLoggedIn}`}==
+          <p>{accessToken}</p>
+          <Link href="/auth/login">Log in</Link>
+          <Link href="/dashboard">Dashboard</Link>
           <code className={styles.code}>pages/index.js</code>
         </p>
 

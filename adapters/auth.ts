@@ -4,7 +4,8 @@ function returnAxiosExternalInstance() {
   const axiosInstance = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}auth/`,
     headers: {
-      Accept: 'application/json',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
     },
     // validateStatus: (status) => status >= 200 && status < 500,
   });
@@ -21,7 +22,8 @@ function returnAxiosInternalInstance() {
   const axiosInstance = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_LOCAL_API_BASE_URL}auth/`,
     headers: {
-      Accept: 'application/json',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
     },
   });
 

@@ -1,16 +1,15 @@
+import axios from 'axios';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { getProfile } from '../../adapters/profile';
-import { getAccessTokenFromCookie } from '../../helpers/cookies';
 import { authLogout } from '../../redux';
 
 type Props = {
   accessToken: string;
 };
 
-export const DashboardPage = ({ accessToken }: Props): JSX.Element => {
-  const [profile, setProfile] = useState({});
+export const DashboardPage = (): JSX.Element => {
   const router = useRouter();
   const dispatch = useDispatch();
   const authState = useSelector((state: RootStateOrAny) => {
@@ -23,38 +22,30 @@ export const DashboardPage = ({ accessToken }: Props): JSX.Element => {
     }
   }, [authState]);
 
-  const getProfileData = async (): Promise<void> => {
-    const profileResponse = await getProfile({ token: accessToken });
-    setProfile(profileResponse.data.data);
-  };
-
-  useEffect(() => {
-    getProfileData();
-  }, []);
-
   const logOut = (): void => {
     dispatch(authLogout());
+  };
+
+  const testCall = async () => {
+    const apiResponse = await axios.get('http://localhost:4000/api/v1/users', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    });
+    console.log({ data: apiResponse.data });
   };
 
   return (
     <div>
       <h2>User Profile</h2>
       <button onClick={logOut}>Log Out</button>
-      <pre>
-        <code>{JSON.stringify(profile, null, 2)}</code>
-      </pre>
+      <Link href="/">Home</Link>
+      <button onClick={testCall}>Test Call</button>
+      <pre>{/* <code>{JSON.stringify(profile, null, 2)}</code> */}</pre>
     </div>
   );
-};
-
-export const getServerSideProps = async ({ req }) => {
-  const accessToken = getAccessTokenFromCookie(req);
-
-  return {
-    props: {
-      accessToken,
-    },
-  };
 };
 
 export default DashboardPage;
