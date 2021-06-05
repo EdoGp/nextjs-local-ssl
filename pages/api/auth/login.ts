@@ -11,6 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         username,
         password,
       });
+      console.log({ response });
       if (response.status >= 200 && response.status < 300) {
         res.setHeader('Set-Cookie', [
           cookie.serialize('accessToken', response.data.data.accessToken, {

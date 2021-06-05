@@ -3,7 +3,7 @@ import types from './authTypes';
 
 const initialState = {
   loading: false,
-  isLoggedIn: !!getAccessToken(),
+  isLoggedIn: false,
   accessToken: getAccessToken(),
   error: '',
 };

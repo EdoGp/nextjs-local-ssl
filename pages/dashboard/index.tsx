@@ -1,8 +1,8 @@
-import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import ApiClient from '../../adapters/api/ApiClient';
 import { authLogout } from '../../redux';
 
 type Props = {
@@ -27,13 +27,9 @@ export const DashboardPage = (): JSX.Element => {
   };
 
   const testCall = async () => {
-    const apiResponse = await axios.get('http://localhost:4000/api/v1/users', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      withCredentials: true,
-    });
+    const apiResponse = await ApiClient.getInstance().getRequest(
+      'auth/profile',
+    );
     console.log({ data: apiResponse.data });
   };
 

@@ -9,4 +9,7 @@ export const authErrorInterceptor = (error: any) => {
   return Promise.reject(error);
 };
 
-export default { authErrorInterceptor, authInterceptor };
+export default {
+  authErrorInterceptor,
+  authInterceptor,
+};

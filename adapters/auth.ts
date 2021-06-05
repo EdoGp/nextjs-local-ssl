@@ -1,54 +1,25 @@
-import axios from 'axios';
-
-function returnAxiosExternalInstance() {
-  const axiosInstance = axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}auth/`,
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    // validateStatus: (status) => status >= 200 && status < 500,
-  });
-
-  // axiosInstance.interceptors.response.use(
-  //   authInterceptor,
-  //   authErrorInterceptor,
-  // );
-
-  return axiosInstance;
-}
-
-function returnAxiosInternalInstance() {
-  const axiosInstance = axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_LOCAL_API_BASE_URL}auth/`,
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
-
-  return axiosInstance;
-}
+import ApiClient from './api/ApiClient';
+import InternalApiClient from './api/InternalApiClient';
 
 export const postExternalLogin = (loginCredentials: {
   username: string;
   password: string;
 }) => {
-  const axiosInstance = returnAxiosExternalInstance();
-  return axiosInstance.post('signin', loginCredentials);
+  return ApiClient.getInstance().postRequest('auth/signin', loginCredentials);
 };
 
 export const postInternalLogin = (loginCredentials: {
   username: string;
   password: string;
 }) => {
-  const axiosInstance = returnAxiosInternalInstance();
-  return axiosInstance.post('login', loginCredentials);
+  return InternalApiClient.getInstance().postRequest(
+    'auth/login',
+    loginCredentials,
+  );
 };
 
 export const postInternalLogout = () => {
-  const axiosInstance = returnAxiosInternalInstance();
-  return axiosInstance.post('logout');
+  return InternalApiClient.getInstance().postRequest('auth/logout');
 };
 
 export default {
