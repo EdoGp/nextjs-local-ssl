@@ -2,12 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import ApiClient from '../../adapters/api/ApiClient';
 import { authLogout } from '../../redux';
-
-type Props = {
-  accessToken: string;
-};
 
 export const DashboardPage = (): JSX.Element => {
   const router = useRouter();
@@ -26,20 +21,11 @@ export const DashboardPage = (): JSX.Element => {
     dispatch(authLogout());
   };
 
-  const testCall = async () => {
-    const apiResponse = await ApiClient.getInstance().getRequest(
-      'auth/profile',
-    );
-    console.log({ data: apiResponse.data });
-  };
-
   return (
     <div>
       <h2>User Profile</h2>
       <button onClick={logOut}>Log Out</button>
       <Link href="/">Home</Link>
-      <button onClick={testCall}>Test Call</button>
-      <pre>{/* <code>{JSON.stringify(profile, null, 2)}</code> */}</pre>
     </div>
   );
 };

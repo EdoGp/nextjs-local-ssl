@@ -59,7 +59,7 @@ export const LoginPage = (): JSX.Element => {
             <input type="submit" value="Login" className="btn" />
             <p>
               Don't have an account?
-              <Link href="/auth/register">Register</Link>
+              <Link href="/auth/signup">Register</Link>
             </p>
           </div>
         </form>
